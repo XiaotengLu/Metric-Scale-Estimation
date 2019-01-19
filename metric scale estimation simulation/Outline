@@ -1,0 +1,16 @@
+Outline of reading data
+1、从Rawdata文件夹中读取出图像信息，貌似存在灰度图到彩色图的传唤(cvtcolor?)， 每个txt文件都有一个一张图
+2、读取calibration文件中的照相机内部参数以及，IMU坐标系和相机坐标系的变换矩阵P=[R|t]，仅有两个量且都是确定的量
+3、读取trajectory文件中的照相机pose参数，参数每一行有7个，前三个代表线性变换矩阵P(x,y,z)，后四个代表旋转矩阵q(x,y,z,w)，四元数的形式表示
+   refer to:https://www.cnblogs.com/youzx/p/6387735.html用四元数的四个参数可以表示出R旋转矩阵。
+4、Mapdata中存储了三维的点[X,Y,Z]，投影到图像中可以得到二维的点[u,v]，利用照相机内参可以计算。每一帧都有很多key points
+5、data_id代表和时间戳对应的id，应该是图像的帧数，不同的帧有对应的时间戳以及id，相邻两帧的时间差是可以计算得到的，并由此得到motion的信息。
+
+每一帧的物体上的key points + time stamp --> object motion(velocity)
+camera trajectory + time stamp --> camera motion(velocity)
+up to scale motion (object with respect to camera)
+covarience matrix --> correlation optimization --> s = -b/2a
+
+
+
+
